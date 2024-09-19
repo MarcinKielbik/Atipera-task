@@ -9,6 +9,18 @@
     }
 }
 
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+
+    p {
+        margin-top: 8px;
+    }
+  }
+
 mat-form-field {
     width: 50vh;
 }

@@ -30,11 +30,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './periodic-table.component.html',
   styleUrl: './periodic-table.component.scss'
 })
-export class PeriodicTableComponent implements OnInit{
+export class PeriodicTableComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
   dataSource = new MatTableDataSource<PeriodicElement>([]);
   filterControl = new FormControl();
-  isLoading = true; // Ustawienie stanu ładowania na true
+  isLoading = true; // Set the loading state to true
 
   constructor(public dialog: MatDialog) {}
 
@@ -42,24 +42,25 @@ export class PeriodicTableComponent implements OnInit{
     this.simulateDataFetch();
 
     this.filterControl.valueChanges
-      .pipe(debounceTime(2000)) // Opóźnienie 2s
+      .pipe(debounceTime(1000)) // Delay of 1 second
       .subscribe(value => {
         this.dataSource.filter = value.trim().toLowerCase();
       });
   }
 
   simulateDataFetch() {
-    // Symulacja pobierania danych (np. z API)
+    // Simulate data fetching (e.g., from an API)
     setTimeout(() => {
       this.dataSource.data = ELEMENT_DATA;
-      this.isLoading = false; // Po załadowaniu danych wyłączamy ekran ładowania
-    }, 3000); // Symulacja 3-sekundowego pobierania
+      this.isLoading = false; 
+      // After the data is loaded, turn off the loading screen
+    }, 3000); // Simulating a 3-second data fetch
   }
 
   openEditDialog(element: PeriodicElement): void {
     const dialogRef = this.dialog.open(EditElementDialogComponent, {
       width: '250px',
-      data: { ...element } // Przekazujemy kopię obiektu, aby uniknąć mutacji
+      data: { ...element } // Pass a copy of the object to avoid mutation
     });
 
     dialogRef.afterClosed().subscribe(result => {
